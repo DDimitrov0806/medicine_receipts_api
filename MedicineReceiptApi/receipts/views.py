@@ -8,6 +8,10 @@ class Receipts(generics.GenericAPIView):
     serializer_class = ReceiptSerializer
     queryset = ReceiptModel.objects.all()
     
+    def get_all(self,request):
+        receipts = ReceiptModel.objects.all()
+        serializer = self.serializer_class(receipts, data=request.data)
+
     def get(self, request, request_id):
         if request_id!=None:
             receipt = ReceiptModel.objects.get(id=request_id)
@@ -40,7 +44,7 @@ class Receipts(generics.GenericAPIView):
             return JsonResponse(serializer.data, status=status.HTTP_200_OK)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def delete(self,request, request_id):
+    def delete(self, request, request_id):
         receipt = ReceiptModel.objects.get(id = request_id)
         if receipt == None:
             return JsonResponse(f"Receipt with id {request_id} not found",status=status.HTTP_404_NOT_FOUND)
