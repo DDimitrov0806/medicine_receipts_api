@@ -1,6 +1,7 @@
 from django.urls import path 
-from receipts.views import Receipts
+from receipts.views import MedicineView
  
 urlpatterns = [ 
-    path('<str:request_id>', Receipts.as_view()),
+    path('medicines/', MedicineView.as_view()),
+    path('medicines/<int:id>/', MedicineView.as_view())
 ]

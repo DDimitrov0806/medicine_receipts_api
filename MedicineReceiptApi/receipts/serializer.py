@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from receipts.models import ReceiptModel
+from .models import Medicine
  
  
-class ReceiptSerializer(serializers.ModelSerializer):
+class MedicineSerializer(serializers.ModelSerializer):
  
     class Meta:
-        model = ReceiptModel
-        fields = '__all__'
+        model = Medicine
+        fields = ['id','name','description','price']
