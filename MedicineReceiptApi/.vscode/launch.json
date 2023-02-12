@@ -9,7 +9,7 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "C:\\Users\\Dani\\Desktop\\Python\\medicine_receipts_api\\MedicineReceiptApi\\manage.py",
+            "program": "${workspaceFolder}\\manage.py",
             "args": [
                 "runserver"
             ],

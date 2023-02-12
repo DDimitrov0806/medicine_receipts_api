@@ -1,28 +1,20 @@
 from http.client import HTTPResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from receipts.models import Receipt
-from receipts.serializer import ReceiptSerializer
+from .models import Medicine
+from .serializer import MedicineSerializer
 from django.http.response import JsonResponse
 from rest_framework import status
 
-class ReceiptView(APIView):
-    serializer_class = ReceiptSerializer
-    queryset = Receipt.objects.all()
-    
-    # def get_all(self,request, *args, **kwargs):
-    #     receipts = Receipt.objects.all()
-    #     serializer = ReceiptSerializer(receipts,many=True)
-    #     #return JsonResponse(receipts, status=status.HTTP_200_OK)
-    #     #return HTTPResponse(receipts)
-    #     return Response(serializer.data, status=status.HTTP_200_OK)
+class MedicineView(APIView):
+    serializer_class = MedicineSerializer
+    queryset = Medicine.objects.all()
 
     def get(self, request, id=None, *args, **kwargs):
-        #request_id = request.data.get('id')
-        receipts = Receipt.objects.all()
+        medicines = Medicine.objects.all()
         if id:
-            receipts = receipts.filter(id=id)
-        serializer = self.serializer_class(receipts, many=True)
+            medicines = medicines.filter(id=id)
+        serializer = self.serializer_class(medicines, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -32,7 +24,7 @@ class ReceiptView(APIView):
             'description': request.data.get('description'),
             'price': request.data.get('price')
         }
-        serializer = ReceiptSerializer(data=req_data)
+        serializer = MedicineSerializer(data=req_data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
@@ -40,7 +32,7 @@ class ReceiptView(APIView):
 
     
     def put(self,request, id):
-        receipt = Receipt.objects.get(id=id)
+        receipt = Medicine.objects.get(id=id)
         if receipt == None:
             return Response(f"Receipt with id {id} not found",status=status.HTTP_404_NOT_FOUND)
         data = {
@@ -55,7 +47,7 @@ class ReceiptView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, id):
-        receipt = Receipt.objects.get(id=id)
+        receipt = Medicine.objects.get(id=id)
         if receipt == None:
             return Response(f"Receipt with id {id} not found",status=status.HTTP_404_NOT_FOUND)
         receipt.delete()

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Receipt
+from .models import Medicine
 
-admin.site.register(Receipt)
+admin.site.register(Medicine)
