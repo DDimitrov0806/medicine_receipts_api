@@ -1,7 +1,13 @@
 from django.urls import path 
-from receipts.views import MedicineView
+from .views.doctorView import DoctorView
+from .views.medicineViews import MedicineView
+from .views.pharmacyView import PharmacyView
  
 urlpatterns = [ 
-    path('medicines/', MedicineView.as_view()),
-    path('medicines/<int:id>/', MedicineView.as_view())
+    path('medicine', MedicineView.as_view()),
+    path('medicine/<int:id>', MedicineView.as_view()),
+    path('doctor', DoctorView.as_view()),
+    path('doctor/<int:id>', DoctorView.as_view()),
+    path('pharmacy', PharmacyView.as_view()),
+    path('pharmacy/<int:id>', PharmacyView.as_view())
 ]
