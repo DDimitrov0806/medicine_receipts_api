@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models.doctorModel import  Doctor
 from .models.medicineModel import Medicine
 from .models.pharmacyModel import Pharmacy
-
+from django.contrib.auth.models import User
 
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +19,8 @@ class PharmacySerializer(serializers.ModelSerializer):
     class Meta:
         model = Pharmacy
         fields = '__all__'
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email')
