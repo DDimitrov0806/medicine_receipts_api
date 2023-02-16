@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from receipts.models.doctorModel import Doctor
 from receipts.serializers import DoctorSerializer
 from rest_framework import status
+from receipts.tableModels.patientModel import Doctor
 
 
 class DoctorView(APIView):

@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ACCOUNT_USERNAME_REQUIRED = False
+AUTH_USER_MODEL ='receipts.User'
 
 # Application definition
 
@@ -139,9 +140,12 @@ REST_FRAMEWORK = {
 ),
 }
 
-JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': timedelta(days=2),
+SIMPLE_JWT  = {
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
 CORS_ORIGIN_ALLOW_ALL = False

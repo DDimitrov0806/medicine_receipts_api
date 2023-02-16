@@ -1,14 +1,16 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from receipts.models.pharmacyModel import Pharmacy
+from receipts.tableModels.pharmacyModel import Pharmacy
 from receipts.serializers import PharmacySerializer
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 
 class PharmacyView(APIView):
     serializer_class = PharmacySerializer
     queryset = Pharmacy.objects.all()
-
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request, id=None, *args, **kwargs):
         pharmacies = Pharmacy.objects.all()
         if id:

@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from receipts.models.medicineModel import Medicine
+from receipts.tableModels.medicineModel import Medicine
 from receipts.serializers import MedicineSerializer
 from rest_framework import status
 

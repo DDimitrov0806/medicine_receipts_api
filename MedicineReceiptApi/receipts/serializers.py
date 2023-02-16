@@ -1,19 +1,15 @@
 from rest_framework import serializers
-from .models.doctorModel import  Doctor
-from .models.medicineModel import Medicine
-from .models.pharmacyModel import Pharmacy
-from django.contrib.auth.models import User
+
+from receipts.models import User
+from .tableModels.patientModel import Patient
+
+from .tableModels.medicineModel import Medicine
+from .tableModels.pharmacyModel import Pharmacy
 
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medicine
-        #fields = ['id', 'name', 'description', 'price']
         fields='__all__'
-
-class DoctorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Doctor
-        fields = '__all__'
 
 class PharmacySerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,4 +19,10 @@ class PharmacySerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email')
+        fields = ('id', 'first_name','last_name','username', 'email','adress','is_patient','is_doctor')
+
+class PatientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Patient
+        fields = '__all__'
+        
