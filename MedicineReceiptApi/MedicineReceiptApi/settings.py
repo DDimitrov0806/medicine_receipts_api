@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 ACCOUNT_USERNAME_REQUIRED = False
 AUTH_USER_MODEL ='receipts.User'
-
 # Application definition
 
 INSTALLED_APPS = [

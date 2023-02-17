@@ -14,6 +14,7 @@ class RegisterView(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         first_name = request.data.get("firstName")
         last_name = request.data.get("lastName")
+        address = request.data.get("address")
         email = request.data.get("email")
         password = request.data.get("password")
         pin = request.data.get("pin")
@@ -26,11 +27,10 @@ class RegisterView(generics.CreateAPIView):
         if User.objects.filter(email=email).exists():
             return Response({"error": "Email already exists"}, status=status.HTTP_400_BAD_REQUEST)
 
-        user = User(first_name=first_name,last_name=last_name, email=email, password=password,is_doctor=is_doctor,is_patient=is_patient,is_staff=True,is_superuser=False)
+        user = User(username=email,first_name=first_name,last_name=last_name, email=email, address=address, password=password,is_doctor=is_doctor,is_patient=is_patient,is_staff=True,is_superuser=False)
         user.set_password(password)
 
         user.save()
-        #user = User.objects.create_user(first_name=first_name,last_name=last_name, email=email, password=password,is_doctor=is_doctor,is_student=is_student)
         if is_patient:
             patient = Patient.objects.create(pin=pin,user=user)
         if is_doctor:
