@@ -4,11 +4,13 @@ from receipts.serializers import DoctorSerializer
 from rest_framework import status
 from receipts.tableModels.patientModel import Patient
 from receipts.tableModels.doctorModel import Doctor
+from rest_framework.permissions import IsAuthenticated
 
 
 class DoctorView(APIView):
     serializer_class = DoctorSerializer
     queryset = Doctor.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         user = request.user

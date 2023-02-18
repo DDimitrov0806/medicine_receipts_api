@@ -3,24 +3,21 @@ from rest_framework import serializers
 from receipts.models import User
 from receipts.tableModels.doctorModel import Doctor
 from .tableModels.patientModel import Patient
-
 from .tableModels.medicineModel import Medicine
-from .tableModels.pharmacyModel import Pharmacy
+from .tableModels.pharmacyModel import Pharmacy, PharmacyMedicine
+
 
 class MedicineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Medicine
-        fields='__all__'
-
-class PharmacySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Pharmacy
         fields = '__all__'
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name','last_name','username', 'email','adress','is_patient','is_doctor')
+        fields = ('id', 'first_name', 'last_name', 'username',
+                  'email', 'adress', 'is_patient', 'is_doctor')
 
 
 class DoctorSerializer(serializers.ModelSerializer):
@@ -28,11 +25,30 @@ class DoctorSerializer(serializers.ModelSerializer):
         model = Doctor
         fields = '__all__'
         depth = 1
-        
+
+
+class PharmacySerializer(serializers.ModelSerializer):
+    medicines = MedicineSerializer(many=True)
+
+
+    class Meta:
+        model = Pharmacy
+        fields = '__all__'
+        depth=1
 class PatientSerializer(serializers.ModelSerializer):
     doctor = DoctorSerializer(many=False)
 
     class Meta:
-        model= Patient
+        model = Patient
         fields = '__all__'
         depth = 1
+
+
+class PharmacyMedicineSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PharmacyMedicine
+        fields = '__all__'
+        depth = 1
+
+

@@ -6,6 +6,7 @@ from .views.medicineViews import MedicineView
 from .views.pharmacyView import PharmacyView
 from .views.doctorView import DoctorView
 from .views.patientView import PatientView
+from .views.pharmacyMedicineView import PharmacyMedicineView
  
 urlpatterns = [ 
     path('medicine', MedicineView.as_view()),
@@ -16,5 +17,6 @@ urlpatterns = [
     path('register/', RegisterView.as_view()),
     path('patient', PatientView.as_view()),
     path('patient/<int:doctor_id>', PatientView.as_view()),
-    path('doctor',DoctorView.as_view())
+    path('doctor',DoctorView.as_view()),
+    path('pharmacy-medicine', PharmacyMedicineView.as_view())
 ]

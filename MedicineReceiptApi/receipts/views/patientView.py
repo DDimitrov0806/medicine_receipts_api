@@ -7,15 +7,17 @@ from receipts.tableModels.doctorModel import Doctor
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from ..decorators import doctor_required, patient_required
+from rest_framework.permissions import IsAuthenticated
 
 class PatientView(APIView):
     serializer_class = PatientSerializer
     queryset = Patient.objects.all()
-    
+    permission_classes = [IsAuthenticated]
+
     #doctor_required
     def get(self, request, *args, **kwargs):
         user = request.user
-        if not user.is_authenticated and not user.is_doctor:
+        if not(user.is_authenticated and user.is_doctor):
             return Response("No permissions", status=status.HTTP_403_FORBIDDEN)
         doctors = Doctor.objects.all()
         doctor = doctors.filter(user_id=request.user.id).first()

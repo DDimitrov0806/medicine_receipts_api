@@ -20,7 +20,6 @@ class MedicineView(APIView):
         req_data = {
             'name': request.data.get('name'),
             'description': request.data.get('description'),
-            'price': request.data.get('price')
         }
         serializer = MedicineSerializer(data=req_data)
         if serializer.is_valid():
@@ -36,7 +35,6 @@ class MedicineView(APIView):
         data = {
             'name': request.data.get('name'), 
             'description': request.data.get('description'), 
-            'price': request.data.get('price')
         }
         serializer = self.serializer_class(instance = medicine,data=data, partial=True)
         if serializer.is_valid():
