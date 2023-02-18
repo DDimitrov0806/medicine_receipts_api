@@ -28,9 +28,6 @@ class DoctorSerializer(serializers.ModelSerializer):
 
 
 class PharmacySerializer(serializers.ModelSerializer):
-    medicines = MedicineSerializer(many=True)
-
-
     class Meta:
         model = Pharmacy
         fields = '__all__'
@@ -45,7 +42,6 @@ class PatientSerializer(serializers.ModelSerializer):
 
 
 class PharmacyMedicineSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = PharmacyMedicine
         fields = '__all__'

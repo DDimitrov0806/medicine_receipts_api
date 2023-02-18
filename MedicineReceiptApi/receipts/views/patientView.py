@@ -17,7 +17,7 @@ class PatientView(APIView):
     #doctor_required
     def get(self, request, *args, **kwargs):
         user = request.user
-        if not(user.is_authenticated and user.is_doctor):
+        if not user.is_authenticated or not user.is_doctor:
             return Response("No permissions", status=status.HTTP_403_FORBIDDEN)
         doctors = Doctor.objects.all()
         doctor = doctors.filter(user_id=request.user.id).first()
@@ -30,7 +30,7 @@ class PatientView(APIView):
     #patient_required
     def put(self, request, doctor_id):
         user = request.user
-        if not user.is_authenticated and not user.is_patient:
+        if not user.is_authenticated or not user.is_patient:
             return Response("No permissions", status=status.HTTP_403_FORBIDDEN)
         doctor = Doctor.objects.filter(id=doctor_id).first()
         patient = Patient.objects.filter(user_id=request.user.id).first()

@@ -4,7 +4,7 @@ from .medicineModel import Medicine
 class Pharmacy(models.Model):
     name = models.CharField(max_length=100, blank=False, default='')
     address = models.CharField(max_length=200, blank=False, default='')
-    medicines = models.ManyToManyField(Medicine, through='PharmacyMedicine')
+    medicines = models.ManyToManyField(Medicine, through='PharmacyMedicine',blank=True, null=True)
 
     class Meta:
         db_table = 'pharmacy'

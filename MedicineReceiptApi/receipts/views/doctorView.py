@@ -14,7 +14,7 @@ class DoctorView(APIView):
 
     def get(self, request, *args, **kwargs):
         user = request.user
-        if not user.is_authenticated and not user.is_patient:
+        if not user.is_authenticated or not user.is_patient:
             return Response("No permissions", status=status.HTTP_403_FORBIDDEN)
         doctors = Doctor.objects.all()
         doctor = None
